@@ -4,9 +4,11 @@ import { FaForward } from "react-icons/fa";
 import { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import Ludo from "@/components/Ludo";
 export default function Home() {
   const [user1, setUser1] = useState("");
   const [user2, setUser2] = useState("");
+  const [show, setShow] = useState(false);
 
   return (
     <section className="text-gray-600 body-font">
@@ -22,6 +24,14 @@ export default function Home() {
             adventure!
           </p>
         </div>
+        <div className="flex flex-col text-center w-full mb-20">
+          <h2 className="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
+            LUDO
+          </h2>
+          <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
+            Ludo Game
+          </h1>
+        </div>
         <Formik
           initialValues={{ user1: "", user2: "" }}
           validationSchema={Yup.object({
@@ -33,17 +43,20 @@ export default function Home() {
               .required("Required"),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+            setUser1(values.user1);
+            setUser2(values.user2);
+            setShow(true);
+            // setTimeout(() => {
+            //   alert(JSON.stringify(values, null, 2));
+            //   setSubmitting(false);
+            // }, 400);
           }}
         >
           {(formik) => (
-            <form onSubmit={formik.handleSubmit}>
+            <form className="mb-5" onSubmit={formik.handleSubmit}>
               <div className="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2">
                 <div className="p-2 sm:w-1/2 w-full ">
-                  <div className="bg-gray-100 rounded flex p-4 items-center">
+                  <div className="bg-gray-100 rounded flex p-4 items-center focus-within:bg-gray-300">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -61,7 +74,7 @@ export default function Home() {
                       id="user1"
                       name="user1"
                       placeholder="First Person Name"
-                      className="w-full px-3 py-2 bg-inherit"
+                      className="w-full px-3 py-2 bg-inherit rounded outline-none"
                       {...formik.getFieldProps("user1")}
                     />
                   </div>
@@ -72,7 +85,7 @@ export default function Home() {
                   ) : null}
                 </div>
                 <div className="p-2 sm:w-1/2 w-full ">
-                  <div className="bg-gray-100 rounded flex p-4 items-center">
+                  <div className="bg-gray-100 rounded flex p-4 items-center focus-within:ring-1">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -88,7 +101,7 @@ export default function Home() {
                     <input
                       type="text"
                       placeholder="Second Person Name"
-                      className="w-full px-3 py-2 bg-inherit"
+                      className="w-full px-3 py-2 bg-inherit rounded focus:ring-0"
                       id="user2"
                       name="user2"
                       {...formik.getFieldProps("user2")}
@@ -116,6 +129,8 @@ export default function Home() {
             </form>
           )}
         </Formik>
+
+        {show && <Ludo person1={user1} person2={user2} />}
       </div>
     </section>
   );

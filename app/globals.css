@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.grid-main > div {
+  @apply relative flex h-[100px] w-[100px] content-center items-center justify-center border-2 border-gray-200 text-center text-gray-300 font-bold text-5xl rounded-lg shadow-md;
+}
+
+.grid-main > div span.token {
+  @apply absolute w-[30px] h-[30px] rounded-full;
+}
+.grid-main > div span.token.token-red {
+  @apply right-1 bottom-1 bg-red-400;
+}
+
+.grid-main > div span.token.token-green {
+  @apply left-1 bottom-1 bg-green-400;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-animation {
+  animation: rotate 4s linear infinite;
+}
+
+.fade-in {
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
